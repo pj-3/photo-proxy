@@ -16,20 +16,20 @@ app.all('/api/listings/:listingID/reviews', (req, res) => {
       });
     } )
 
-app.all('/api/vq/p/rentals', (req, res) => {
+app.all('/v1*', (req, res) => {
     proxy.web(req, res, {
-        target: "http://ec2-3-101-25-105.us-west-1.compute.amazonaws.com/"
-    });
-} )
+        target: "http://54.151.16.190"
+    }, (err) => {  console.log(err); return res.status(404).send(); });
+})
 
-app.all('/api/listing/*', (req, res) => {
+app.all('/listing', (req, res) => {
     proxy.web(req, res, {
         target: "http://ec2-3-133-39-202.us-east-2.compute.amazonaws.com/"
     });
 })
 
 
-app.all('/location/*', (req, res) => {
+app.all('/location/:id', (req, res) => {
     proxy.web(req, res, {
         target: "http://ec2-54-177-57-186.us-west-1.compute.amazonaws.com:3000/"
     });
